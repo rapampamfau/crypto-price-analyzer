@@ -26,7 +26,7 @@ public class FileHandler {
                 .filter(path -> Pattern.matches(filePattern, path.getFileName().toString()))
                 .forEach(FileHandler::deleteFile);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Error deleting files: " + e.getMessage());
         }
     }
 
