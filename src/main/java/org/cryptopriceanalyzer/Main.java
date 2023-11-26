@@ -1,14 +1,12 @@
 package org.cryptopriceanalyzer;
 
-import org.cryptopriceanalyzer.config.WebDriverConfig;
-import org.cryptopriceanalyzer.service.DataHandler;
-import org.openqa.selenium.WebDriver;
+import com.opencsv.exceptions.CsvException;
+import org.cryptopriceanalyzer.logic.AppRun;
+
+import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) {
-        WebDriver wd = WebDriverConfig.getDriver();
-
-        DataHandler df = new DataHandler();
-        df.downloadData(wd);
+    public static void main(String[] args) throws IOException, CsvException {
+        AppRun.run();
     }
 }

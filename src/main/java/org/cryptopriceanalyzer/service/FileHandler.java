@@ -55,7 +55,7 @@ public class FileHandler {
         return null;
     }
 
-    static String getDownloadDir(String user) {
+    public static String getDownloadDir(String user) {
         if (os.contains("win")) {
             return "C:\\" + user + "\\Downloads";
         } else if (os.contains("nix") || os.contains("nux") || os.contains("aix") || os.contains("mac")) {
@@ -65,8 +65,20 @@ public class FileHandler {
         }
     }
 
-    private static String getUser() {
-        String fileName = "users.txt";
+    public static String getUser() {
+        String fileName = "user.txt";
+        String firstLine = getFirstLineFromResource(fileName);
+
+        if (firstLine != null) {
+            System.out.println("First Line: " + firstLine);
+        } else {
+            System.out.println("Unable to read the first line.");
+        }
+        return firstLine;
+    }
+
+    public static String getEmail() {
+        String fileName = "email.txt";
         String firstLine = getFirstLineFromResource(fileName);
 
         if (firstLine != null) {
