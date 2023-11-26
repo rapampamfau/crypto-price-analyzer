@@ -4,11 +4,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class DataFetcher {
+public class DataHandler {
 
+    public FileHandler fileHandler = new FileHandler();
     private static final String YAHOO_FINANCE = "https://finance.yahoo.com/quote/BTC-USD/history/?guccounter=1";
-
     public void downloadData(WebDriver driver) {
+        fileHandler.deleteDuplicates();
         try {
             driver.get(YAHOO_FINANCE);
 

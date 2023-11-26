@@ -7,9 +7,6 @@ public class WebDriverConfig {
 
     private static final String WEB_KEY = "webdriver.chrome.driver";
 
-    private static String validateOS() {
-        return System.getProperty("os.name").toLowerCase();
-    }
 
     private static String getDriverPath(String os) throws Exception {
         String path;
@@ -26,7 +23,7 @@ public class WebDriverConfig {
     }
 
     private static void setProperty() {
-        String os = validateOS();
+        String os = System.getProperty("os.name").toLowerCase();
         String driverPath;
         try {
             driverPath = getDriverPath(os);
