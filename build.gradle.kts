@@ -15,6 +15,8 @@ dependencies {
     implementation("org.seleniumhq.selenium:selenium-java:4.15.0")
     implementation("org.seleniumhq.selenium:selenium-chrome-driver:4.15.0")
     implementation("com.opencsv:opencsv:5.7.1")
+    implementation("com.sun.mail:javax.mail:1.6.2")
+
 
 }
 

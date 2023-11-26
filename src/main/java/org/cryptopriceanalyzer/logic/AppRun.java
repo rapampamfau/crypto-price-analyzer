@@ -1,21 +1,29 @@
 package org.cryptopriceanalyzer.logic;
 
+import org.cryptopriceanalyzer.config.WebDriverConfig;
 import org.cryptopriceanalyzer.service.CsvParser;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 import com.opencsv.exceptions.CsvException;
-import org.cryptopriceanalyzer.service.EmailSender;
+import org.cryptopriceanalyzer.service.DataHandler;
 import org.cryptopriceanalyzer.service.FileHandler;
+import org.cryptopriceanalyzer.service.EmailSender;
+import java.util.Properties;
 
 public class AppRun {
-    static String email = FileHandler.getEmail();
+    static DataHandler dataHandler = new DataHandler();
+    static String email = "email.recipient";
+    static Properties properties = new Properties();
+
     static String user = FileHandler.getUser();
     static String downloadDir = FileHandler.getDownloadDir(user);
     static String os = System.getProperty("os.name").toLowerCase();
 
-    public static void run() {
+    public static void run() throws IOException {
+        properties.load(AppRun.class.getClassLoader().getResourceAsStream("application.properties"));
+        dataHandler.downloadData(WebDriverConfig.getDriver());
         try {
             // Step 1: Parse CSV file
             List<String[]> csvData;
@@ -39,9 +47,12 @@ public class AppRun {
             double sma = Calculator.calculateSMA(closeColumn, period);
             double ema = Calculator.calculateEMA(closeColumn, period);
 
+            System.out.println("SMA: " + sma);
+            System.out.println("EMA: " + ema);
+
             // Step 3: Send email with the results
             String emailBody = "SMA: " + sma + "\nEMA: " + ema;
-            EmailSender.sendEmail(email, "Financial Data Analysis", emailBody);
+            EmailSender.sendEmail(email, "BTC-USD", emailBody);
 
         } catch (IOException | CsvException e) {
             System.err.println("Error: " + e.getMessage());

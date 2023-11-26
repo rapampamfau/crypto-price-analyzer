@@ -40,3 +40,9 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+# Ignore configuration files
+src/main/resources/application.properties
+
+# Ignore Maven build directory
+target/
