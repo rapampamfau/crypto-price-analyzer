@@ -1,5 +1,6 @@
 package org.cryptopriceanalyzer.logic;
 
+import org.cryptopriceanalyzer.config.PropertiesLoader;
 import org.cryptopriceanalyzer.config.WebDriverConfig;
 import org.cryptopriceanalyzer.service.CsvParser;
 
@@ -13,11 +14,31 @@ import org.cryptopriceanalyzer.service.EmailSender;
 import java.util.Properties;
 
 public class AppRun {
-    static DataHandler dataHandler = new DataHandler();
-    static String email = "email.recipient";
+
+    static Properties conf;
+
+    static {
+        try {
+            conf = PropertiesLoader.loadProperties();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    static String user = conf.getProperty("app.user");
+    static DataHandler dataHandler;
+
+    static {
+        try {
+            dataHandler = new DataHandler();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    static String email = conf.getProperty("email.recipient");
     static Properties properties = new Properties();
 
-    static String user = FileHandler.getUser();
     static String downloadDir = FileHandler.getDownloadDir(user);
     static String os = System.getProperty("os.name").toLowerCase();
 

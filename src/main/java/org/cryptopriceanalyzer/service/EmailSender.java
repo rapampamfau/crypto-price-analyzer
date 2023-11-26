@@ -33,7 +33,6 @@ public class EmailSender {
             message.setText(body);
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
             Transport.send(message);
-
             System.out.println("Email sent successfully!");
         } catch (MessagingException e) {
             System.err.println("Error: " + e.getMessage());
